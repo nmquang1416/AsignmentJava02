@@ -1,4 +1,4 @@
-package article;
+package article.crawler;
 
 public interface CrawlerArticles {
     void crawlerLink(String link);

@@ -1,4 +1,6 @@
-package article;
+package article.service;
+
+import article.Article;
 
 import java.util.ArrayList;
 

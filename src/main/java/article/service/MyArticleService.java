@@ -1,14 +1,12 @@
-package article;
+package article.service;
 
+import article.Article;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -50,10 +48,10 @@ public class MyArticleService implements ArticleService {
 
 
             Article article = new Article();
+
             article.setTitle(title);
             article.setBaseUrl(baseUrl);
             article.setDescription(description);
-            article.setDescCaution(desc_cation);
             System.out.println(image);
             article.setAuthorName(authorName);
             System.out.println("Article: " + article);

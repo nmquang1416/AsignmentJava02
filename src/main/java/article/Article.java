@@ -8,7 +8,6 @@ public class Article {
     private String baseUrl;
     private String title;
     private String description;
-    private String descCaution;
     private String content;
     private String img;
     private String thumbnail;
@@ -27,7 +26,7 @@ public class Article {
                 "\nid=" + id +
                 ", \nbaseUrl='" + baseUrl + '\'' +
                 ", \ntitle='" + title + '\'' +
-                ", \ndescCaution='" + descCaution + '\'' +
+                ", \ndescCaution='" +  + '\'' +
                 ", \ndescription='" + description + '\'' +
                 ", \ncontent='" + content + '\'' +
                 ", \nimg=" + img +
@@ -81,20 +80,12 @@ public class Article {
         this.description = description;
     }
 
-    public String getDescCaution() {
-        return descCaution;
-    }
-
     public String getImg() {
         return img;
     }
 
     public void setImg(String img) {
         this.img = img;
-    }
-
-    public void setDescCaution(String descCaution) {
-        this.descCaution = descCaution;
     }
 
     public String getContent() {

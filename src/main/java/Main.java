@@ -1,6 +1,5 @@
-import article.MyArticleService;
-import article.MyCrawlerArticles;
-import article.VnExpressArticleService;
+import article.service.MyArticleService;
+import article.crawler.MyCrawlerArticles;
 
 public class Main {
     public static void main(String[] args) {

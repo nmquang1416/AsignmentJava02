@@ -1,8 +1,10 @@
-package article;
+package article.crawler;
+
+import article.Article;
+import article.service.MyArticleService;
 
 import java.io.*;
 import java.util.ArrayList;
-import java.util.Collection;
 
 public class MyCrawlerArticles implements CrawlerArticles{
 
@@ -33,12 +35,15 @@ public class MyCrawlerArticles implements CrawlerArticles{
                 if (content ==null){
                     break;
                 }
-                System.out.println(content);
-                String[] ArticlesSplit =  content.split("\\|");
+                String[] ArticlesSplit = content.split("\\|");
+//                System.out.println(ArticlesSplit.length);
+                Article article = new Article();
                 if (ArticlesSplit.length == 2){
-                    Article article = new Article();
-                    article.setTitle(ArticlesSplit[0]);
+                    article.setTitle(ArticlesSplit[0].trim());
+                    article.setBaseUrl(ArticlesSplit[1].trim());
+//                    articles.add(article);
                 }
+                System.out.println(article.getBaseUrl());
             }
         } catch (IOException e) {
             throw new RuntimeException(e);
