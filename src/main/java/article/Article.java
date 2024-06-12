@@ -4,7 +4,6 @@ import java.time.LocalDate;
 import java.util.Arrays;
 
 public class Article {
-    private long id;
     private String baseUrl;
     private String title;
     private String description;
@@ -23,10 +22,8 @@ public class Article {
     @Override
     public String toString() {
         return "Article{" +
-                "\nid=" + id +
                 ", \nbaseUrl='" + baseUrl + '\'' +
                 ", \ntitle='" + title + '\'' +
-                ", \ndescCaution='" +  + '\'' +
                 ", \ndescription='" + description + '\'' +
                 ", \ncontent='" + content + '\'' +
                 ", \nimg=" + img +
@@ -39,21 +36,13 @@ public class Article {
                 '}';
     }
 
-    public long getId() {
-        return id;
-    }
 
     public String getAuthorName() {
         return authorName;
     }
 
-
     public void setAuthorName(String authorName) {
         this.authorName = authorName;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     public String getBaseUrl() {

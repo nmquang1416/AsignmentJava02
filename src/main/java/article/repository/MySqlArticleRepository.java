@@ -4,10 +4,12 @@ import article.Article;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class MySqlArticleRepository implements ArticleRepository {
-    private final String MYSQL_CONNECTION = "jdbc:mysql://localhost:3306/java_exercise";
+    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss");
+    private final String MYSQL_CONNECTION = "jdbc:mysql://localhost:3306/java_assignment_02";
     private final String MYSQL_USER = "root";
     private final String MYSQL_PASSWORD = "";
 
@@ -34,7 +36,6 @@ public class MySqlArticleRepository implements ArticleRepository {
 
                 Article article = new Article();
 
-                article.setId(id);
                 article.setBaseUrl(base_url);
                 article.setTitle(title);
                 article.setDescription(description);
@@ -67,7 +68,6 @@ public class MySqlArticleRepository implements ArticleRepository {
 
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                long id = resultSet.getLong("id");
                 String base_url = resultSet.getString("base_url");
                 String title = resultSet.getString("title");
                 String description = resultSet.getString("description");
@@ -79,7 +79,6 @@ public class MySqlArticleRepository implements ArticleRepository {
                 LocalDate update_at = LocalDate.parse(resultSet.getString("update_at"));
                 LocalDate delete_at = LocalDate.parse(resultSet.getString("delete_at"));
 
-                article.setId(id);
                 article.setBaseUrl(base_url);
                 article.setTitle(title);
                 article.setDescription(description);
@@ -131,7 +130,7 @@ public class MySqlArticleRepository implements ArticleRepository {
     public Article update(Article article) {
         try {
             Connection connection = DriverManager.getConnection(MYSQL_CONNECTION, MYSQL_USER,MYSQL_PASSWORD);
-            String SQL_String = "update articles set base_url = ?, title = ?, description = ?, content = ?, img = ?, thumbnail = ?, author_name = ?, create_at = ?, update_at = ?, delete_at = ?, status = ? where id = ?,";
+            String SQL_String = "update articles set base_url = ?, title = ?, description = ?, content = ?, img = ?, thumbnail = ?, author_name = ?, create_at = ?, update_at = ?, delete_at = ?, status = ? where base_url = ?,";
             PreparedStatement preparedStatement = connection.prepareStatement(SQL_String);
 
             preparedStatement.setString(1, article.getBaseUrl());
@@ -145,7 +144,6 @@ public class MySqlArticleRepository implements ArticleRepository {
             preparedStatement.setString(9, String.valueOf(article.getUpdateAt()));
             preparedStatement.setString(10, String.valueOf(article.getDeleteAt()));
             preparedStatement.setInt(11, article.getStatus());
-            preparedStatement.setLong(12, article.getId());
             preparedStatement.execute();
             System.out.println("success");
             connection.close();

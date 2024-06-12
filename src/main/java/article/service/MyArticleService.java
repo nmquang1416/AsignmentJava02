@@ -1,14 +1,19 @@
 package article.service;
 
 import article.Article;
+import article.repository.MySqlArticleRepository;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Scanner;
 
 public class MyArticleService implements ArticleService {
     @Override
@@ -17,7 +22,7 @@ public class MyArticleService implements ArticleService {
         HashSet<String> collectLinks = new HashSet<>();
         String firstContains = "https://vnexpress.net/";
         String lastContains = ".html";
-        ArrayList<String> collectLinksArray = null;
+//        ArrayList<String> collectLinksArray = null;
         try {
             Document document = Jsoup.connect(url).get();
             Elements elements = document.getElementsByTag("a");
@@ -27,6 +32,7 @@ public class MyArticleService implements ArticleService {
                     collectLinks.add(href);
                 }
             }
+            System.out.println(collectLinks);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -36,25 +42,41 @@ public class MyArticleService implements ArticleService {
     @Override
     public Article getArticle(String linkArticle) {
         Document document = null;
-        ArrayList<String> imgUrls = new ArrayList<>();
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDateTime now = LocalDateTime.now();
+        Scanner scanner = new Scanner(System.in);
         try{
             document = Jsoup.connect(linkArticle).get();
-            String baseUrl = document.title();
+
             String title = document.select("h1.title-detail").text();
             String description = document.select("p.description").text();
-            String desc_cation = document.select(".desc_cation p").text();
-            String image = document.select("img[itemprop=contentUrl]").attr("data-src");
+            String content = document.select("article.fck_detail p.normal").text();
+            String img = document.select("img[itemprop=contentUrl]").attr("data-src");
+            String thumbnail = document.select("img[itemprop=contentUrl]").attr("data-src");
             String authorName = document.select("article.fck_detail .width-detail-photo p[style=text-align:right;] Strong").text();
-
+            String createAt = dtf.format(now);
+            String updateAt = dtf.format(now);
+            String deleteAt = dtf.format(now);
+//            System.out.println("enter status:");
+//            int status = scanner.nextInt();
 
             Article article = new Article();
 
+            article.setBaseUrl(linkArticle);
             article.setTitle(title);
-            article.setBaseUrl(baseUrl);
             article.setDescription(description);
-            System.out.println(image);
+            article.setContent(content);
+            article.setImg(img);
+            article.setThumbnail(thumbnail);
+            article.setCreateAt(LocalDate.parse(createAt));
+            article.setCreateAt(LocalDate.parse(updateAt));
+            article.setCreateAt(LocalDate.parse(deleteAt));
             article.setAuthorName(authorName);
-            System.out.println("Article: " + article);
+//            article.setStatus(status);
+            System.out.println(article);
+            MySqlArticleRepository mySqlArticleRepository = new MySqlArticleRepository();
+
+//            mySqlArticleRepository.save(article);
 
             return article;
         }catch (IOException e){

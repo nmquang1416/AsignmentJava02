@@ -17,7 +17,6 @@ public class MyCrawlerArticles implements CrawlerArticles{
                 printWriter.printf("\n %d | %s |", i, myArticleService.getLinks(link).get(i));
             }
             printWriter.printf("\n-------------------------------------------");
-//            System.out.println(collectLinks);
             printWriter.close();
         } catch (IOException e) {
             throw new RuntimeException(e);
