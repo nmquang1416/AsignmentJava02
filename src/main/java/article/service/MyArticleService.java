@@ -20,8 +20,8 @@ public class MyArticleService implements ArticleService {
     public ArrayList<String> getLinks(String url) {
         //HashSet dung de chua chua cac phan tu unique, nhung phan tu giong nhau se de len va xoa phan tu cu di
         HashSet<String> collectLinks = new HashSet<>();
-        String firstContains = "https://vnexpress.net/";
-        String lastContains = ".html";
+        String firstContains = "https://";
+        String lastContains = ".htm";
 //        ArrayList<String> collectLinksArray = null;
         try {
             Document document = Jsoup.connect(url).get();

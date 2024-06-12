@@ -21,6 +21,7 @@ public class Application {
             System.out.println("04. Exit");
             System.out.println("Your choice:");
             choice = scanner.nextInt();
+            scanner.nextLine();
             switch (choice){
                 case 1:
                     VnExpressArticleService vnExpressArticleService = new VnExpressArticleService();
@@ -29,7 +30,7 @@ public class Application {
                 case 2:
                     System.out.println("please enter your link: ");
                     String url = scanner.nextLine();
-//                    myArticleService.getLinks(url);
+                    myArticleService.getLinks(url);
                     break;
                 case 3:
                     mySqlArticleRepository.findAll();
